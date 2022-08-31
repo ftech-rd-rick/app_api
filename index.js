@@ -21,40 +21,31 @@ const init = async () => {
     state: {
       ignoreErrors: true,
     },
-    routes: {
-      cors: true,
-    },
+    // routes: {
+    //   cors: true,
+    // },
   });
 
-  // server.ext("onPreResponse", function (request, reply) {
-  //   const response = request.response;
-  //   if (response && response.header && typeof response.header === "function") {
-  //     response.header(
-  //       "Access-Control-Allow-Headers",
-  //       "Authorization, Accept, Accept-Language, Content-Language, Content-Type, Access-Control-Allow-Headers, Access-Control-Allow-Origin, Access-Control-Allow-Methods, Access-Control-Allow-Credentials, Cache-Control, x-token"
-  //     );
-  //     response.header("Access-Control-Allow-Origin", "*");
-  //     response.header(
-  //       "Access-Control-Allow-Methods",
-  //       "GET, POST, PATCH, PUT, DELETE, OPTIONS"
-  //     );
-  //     response.header("Access-Control-Allow-Credentials", true);
-  //   } else {
-  //     server.logger.info(response.headers);
-  //   }
+  server.ext("onPreResponse", function (request, reply) {
+    const response = request.response;
+    if (response && response.header && typeof response.header === "function") {
+      response.header("Access-Control-Allow-Origin", "*");
+      response.header("Access-Control-Allow-Methods", "*");
+      response.header("Access-Control-Allow-Headers", "*");
+      response.header("Access-Control-Expose-Headers", "*");
+      response.header("Access-Control-Allow-Credentials", true);
+    }
 
-  //   server.logger.info(response.headers);
-
-  //   try {
-  //     if (request.method === "options") {
-  //       return request.response.code(200);
-  //     } else {
-  //       return request.response;
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // });
+    try {
+      if (request.method === "options") {
+        return request.response.code(200);
+      } else {
+        return request.response;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  });
 
   await server.register({
     plugin: require("hapi-pino"),

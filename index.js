@@ -21,6 +21,13 @@ const init = async () => {
     state: {
       ignoreErrors: true,
     },
+    routes: {
+      cors: {
+        origin: ["*"],
+        headers: ["Accept", "Content-Type", "Access-Control-Allow-Origin"],
+        additionalHeaders: ["X-Requested-With"],
+      },
+    },
   });
 
   await server.register({
@@ -52,9 +59,6 @@ const init = async () => {
     path: "/",
     options: {
       tags: ["api"],
-      cors: {
-        origin: ["*"],
-      },
     },
     handler: async (request, h) => {
       return "Hello World!";
@@ -66,9 +70,6 @@ const init = async () => {
     path: "/inspection/{id}/carGpsTrack",
     options: {
       tags: ["api"],
-      cors: {
-        origin: ["*"],
-      },
       validate: {
         params: Joi.object({
           id: Joi.number().required(),
@@ -91,9 +92,6 @@ const init = async () => {
     path: "/inspection/{id}/carGpsTrack",
     options: {
       tags: ["api"],
-      cors: {
-        origin: ["*"],
-      },
       validate: {
         params: Joi.object({
           id: Joi.number().required(),

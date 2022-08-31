@@ -36,15 +36,17 @@ const init = async () => {
       response.header("Access-Control-Allow-Credentials", true);
     }
 
+    server.logger.info(response);
+
     try {
       if (request.method === "options") {
-        return request.response.code(200);
+        return "ok";
       } else {
-        return request.response;
+        return "not ok";
       }
     } catch (err) {
       server.logger.info(err);
-      return request.response;
+      return "ok";
     }
   });
 

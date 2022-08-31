@@ -37,11 +37,12 @@ const init = async () => {
     }
 
     try {
-      if (request.method === "options") {
-        return request.response.code(200);
-      } else {
-        return request.response;
-      }
+      return request.response;
+      // if (request.method === "options") {
+      //   return request.response;
+      // } else {
+      //   return request.response;
+      // }
     } catch (err) {
       console.log(err);
     }

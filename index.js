@@ -22,22 +22,7 @@ const init = async () => {
       ignoreErrors: true,
     },
     routes: {
-      cors: {
-        origin: ["*"],
-        headers: [
-          "Authorization",
-          "Accept",
-          "Accept-Language",
-          "Content-Language",
-          "Content-Type",
-          "Access-Control-Allow-Headers",
-          "Access-Control-Allow-Origin",
-          "Access-Control-Allow-Methods",
-          "Access-Control-Allow-Credentials",
-          "Cache-Control",
-          "x-token",
-        ],
-      },
+      cors: true,
     },
   });
 
@@ -54,7 +39,11 @@ const init = async () => {
   //       "GET, POST, PATCH, PUT, DELETE, OPTIONS"
   //     );
   //     response.header("Access-Control-Allow-Credentials", true);
+  //   } else {
+  //     server.logger.info(response.headers);
   //   }
+
+  //   server.logger.info(response.headers);
 
   //   try {
   //     if (request.method === "options") {

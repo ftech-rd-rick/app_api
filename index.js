@@ -21,34 +21,34 @@ const init = async () => {
     state: {
       ignoreErrors: true,
     },
-    // routes: {
-    //   cors: true,
-    // },
+    routes: {
+      cors: true,
+    },
   });
 
-  server.ext("onPreResponse", function (request, reply) {
-    const response = request.response;
-    if (response && response.header && typeof response.header === "function") {
-      response.header("Access-Control-Allow-Origin", "*");
-      response.header("Access-Control-Allow-Methods", "*");
-      response.header("Access-Control-Allow-Headers", "*");
-      response.header("Access-Control-Expose-Headers", "*");
-      response.header("Access-Control-Allow-Credentials", true);
-    }
+  // server.ext("onPreResponse", function (request, reply) {
+  //   const response = request.response;
+  //   if (response && response.header && typeof response.header === "function") {
+  //     response.header("Access-Control-Allow-Origin", "*");
+  //     response.header("Access-Control-Allow-Methods", "*");
+  //     response.header("Access-Control-Allow-Headers", "*");
+  //     response.header("Access-Control-Expose-Headers", "*");
+  //     response.header("Access-Control-Allow-Credentials", true);
+  //   }
 
-    server.logger.info(response);
+  //   server.logger.info(response);
 
-    try {
-      if (request.method === "options") {
-        return "ok";
-      } else {
-        return "not ok";
-      }
-    } catch (err) {
-      server.logger.info(err);
-      return "ok";
-    }
-  });
+  //   try {
+  //     if (request.method === "options") {
+  //       return "ok";
+  //     } else {
+  //       return "not ok";
+  //     }
+  //   } catch (err) {
+  //     server.logger.info(err);
+  //     return "ok";
+  //   }
+  // });
 
   await server.register({
     plugin: require("hapi-pino"),

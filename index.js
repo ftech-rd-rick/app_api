@@ -43,7 +43,8 @@ const init = async () => {
         return request.response;
       }
     } catch (err) {
-      console.log(err);
+      server.logger.info(err);
+      return request.response;
     }
   });
 

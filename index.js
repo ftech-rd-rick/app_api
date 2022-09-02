@@ -58,7 +58,8 @@ const init = async () => {
     },
   });
 
-  await server.register(require("./router/carGpsTrack"));
+  await server.register(require("./router/carGpsTracks"));
+  await server.register(require("./router/inspections"));
 
   await server.start();
 

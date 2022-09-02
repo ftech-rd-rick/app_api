@@ -12,7 +12,7 @@ exports.plugin = {
 
     server.route({
       method: "GET",
-      path: "/inspection/{id}/carGpsTrack",
+      path: "/inspections/{id}/carGpsTracks",
       options: {
         tags: ["api"],
         cors: { origin: ["*"], credentials: true },
@@ -35,7 +35,7 @@ exports.plugin = {
 
     server.route({
       method: "POST",
-      path: "/inspection/{id}/carGpsTrack",
+      path: "/inspections/{id}/carGpsTracks",
       options: {
         tags: ["api"],
         cors: { origin: ["*"], credentials: true },

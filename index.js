@@ -51,7 +51,6 @@ const init = async () => {
     path: "/",
     options: {
       tags: ["api"],
-      cors: { origin: ["*"], credentials: true },
     },
     handler: async (request, h) => {
       return "Hello World!";

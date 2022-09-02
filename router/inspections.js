@@ -15,7 +15,6 @@ exports.plugin = {
       path: "/inspections",
       options: {
         tags: ["api"],
-        cors: { origin: ["*"], credentials: true },
         validate: {
           payload: Joi.object({
             driverId: Joi.number().default("0"),
@@ -45,7 +44,6 @@ exports.plugin = {
       path: "/inspections/{id}",
       options: {
         tags: ["api"],
-        cors: { origin: ["*"], credentials: true },
         validate: {
           params: Joi.object({
             id: Joi.number().required(),
@@ -72,7 +70,6 @@ exports.plugin = {
       path: "/inspections",
       options: {
         tags: ["api"],
-        cors: { origin: ["*"], credentials: true },
       },
       handler: async (request, h) => {
         const result = await client.query(
@@ -91,7 +88,6 @@ exports.plugin = {
     //   path: "/inspections",
     //   options: {
     //     tags: ["api"],
-    //     cors: { origin: ["*"], credentials: true },
     //   },
     //   handler: async (request, h) => {
     //     const inspectionId = request.params.id;
@@ -108,7 +104,6 @@ exports.plugin = {
       path: "/inspections/{id}",
       options: {
         tags: ["api"],
-        cors: { origin: ["*"], credentials: true },
         validate: {
           params: Joi.object({
             id: Joi.number().required(),

@@ -15,7 +15,6 @@ exports.plugin = {
       path: "/inspections/{id}/carGpsTracks",
       options: {
         tags: ["api"],
-        cors: { origin: ["*"], credentials: true },
         validate: {
           params: Joi.object({
             id: Joi.number().required(),
@@ -38,7 +37,6 @@ exports.plugin = {
       path: "/inspections/{id}/carGpsTracks",
       options: {
         tags: ["api"],
-        cors: { origin: ["*"], credentials: true },
         validate: {
           params: Joi.object({
             id: Joi.number().required(),

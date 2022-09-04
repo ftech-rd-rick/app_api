@@ -28,7 +28,7 @@ exports.plugin = {
         const { driverId, carId, pathId, modeId } = request.payload;
 
         const result = await client.query(
-          'INSERT INTO "inspection" (createdAt, driverId, carId, pathId, modeId) VALUES($1, $2, $3, $4, $5)',
+          'INSERT INTO "inspection" ("createdAt", "driverId", "carId", "pathId", "modeId") VALUES($1, $2, $3, $4, $5) RETURNING id',
           [new Date(), driverId, carId, pathId, modeId]
         );
 
@@ -47,14 +47,13 @@ exports.plugin = {
         validate: {
           params: Joi.object({
             id: Joi.number().required(),
-            // .description('the id for the todo item'),
           }),
         },
       },
       handler: async (request, h) => {
         const id = request.params.id;
         const result = await client.query(
-          'SELECT * FROM "inspection" WHERE id = $1 AND isDeleted != true',
+          'SELECT * FROM inspection WHERE id = $1 AND "isDeleted" != true',
           [id]
         );
 
@@ -70,10 +69,24 @@ exports.plugin = {
       path: "/inspections",
       options: {
         tags: ["api"],
+        validate: {
+          query: Joi.object({
+            modeId: Joi.number(),
+          }),
+        },
       },
       handler: async (request, h) => {
+        const { modeId } = request.query;
         const result = await client.query(
-          'SELECT * FROM "inspection" WHERE isDeleted != tru'
+          `SELECT * FROM inspection 
+            WHERE "isDeleted" != true AND 
+            CASE
+              WHEN $1 > 0 THEN "modeId" = $1
+              WHEN $1 = 0 THEN 1 = 1
+              ELSE 1 != 1
+            END
+          `,
+          [modeId]
         );
 
         return {
@@ -114,7 +127,7 @@ exports.plugin = {
       handler: async (request, h) => {
         const id = request.params.id;
         const result = await client.query(
-          'UPDATE "inspection" SET isDeleted = true WHERE id = $1',
+          'UPDATE "inspection" SET "isDeleted" = true WHERE id = $1',
           [id]
         );
         return {

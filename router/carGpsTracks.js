@@ -25,10 +25,13 @@ exports.plugin = {
       handler: async (request, h) => {
         const inspectionId = request.params.id;
         const result = await client.query(
-          'SELECT * FROM "carGpsTrack" WHERE inspectionId = $1 ORDER BY createdAt DESC',
+          'SELECT * FROM "carGpsTrack" WHERE "inspectionId" = $1 ORDER BY "createdAt" DESC',
           [inspectionId]
         );
-        return result.rows || {};
+        return {
+          code: 200,
+          result: result.rows || [],
+        };
       },
     });
 
@@ -54,14 +57,14 @@ exports.plugin = {
         const { createdAt, lat, long } = request.payload;
         // const createdAtJSDate = DateTime.fromJSDate(createdAt).toJSDate();
         const result = await client.query(
-          'INSERT INTO "carGpsTrack" (createdAt, lat, long, inspectionId) VALUES($1, $2, $3, $4)',
+          'INSERT INTO "carGpsTrack" ("createdAt", "lat", "long", "inspectionId") VALUES($1, $2, $3, $4) RETURNING id',
           [createdAt, lat, long, inspectionId]
         );
 
         return {
           code: 200,
           result: {
-            id: result.rows[0],
+            id: result.rows.length == 0 ? {} : result.rows[0],
           },
         };
       },
